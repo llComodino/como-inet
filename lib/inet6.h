@@ -1,5 +1,5 @@
 /*
- * inet4 library - contains the ipv4 definition and it's header along
+ * inet6 header - contains the ipv4 declaration and it's header
  * Copyright (C) 2024  Diego Gila ( https://github.com/llComodino )
  *
  * This program is free software: you can redistribute it and/or modify
