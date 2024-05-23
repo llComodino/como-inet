@@ -10,5 +10,7 @@ I can actually start to create my own version
 
 > Pretty straightforward
 
-`make` - makes (who would have guessed)
-`make clean` - deletes everything that was made (aka cleans up)
+```sh
+make            # makes (who would have guessed)
+make clean      # deletes everything that was made (aka cleans up)
+```

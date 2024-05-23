@@ -47,7 +47,6 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 clean:
 	rm -r $(BUILD_DIR)
 	rm ./$(TARGET_EXEC)
-	rm $(shell find $(SRC_DIRS) -name '*.o' -type f)
 
 # Include the .d makefiles. The - at the front suppresses the errors of missing
 # Makefiles. Initially, all the .d files will be missing, and we don't want those

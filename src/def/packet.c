@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Packet* new_inet4_packet(IPv4 *src_addr, IPv4 *dst_addr, uint64_t* data) {
+Packet* new_inet4_packet(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data) {
   Packet *packet = NULL;
 
   if ( (packet = (Packet *) malloc(sizeof(Packet)) ) == NULL) {
@@ -37,4 +37,20 @@ Packet* new_inet4_packet(IPv4 *src_addr, IPv4 *dst_addr, uint64_t* data) {
   return packet;
 }
 
-Packet* new_inet6_packet(IPv6 src_addr, IPv6 dst_addr, uint64_t* data);
+Packet* new_inet6_packet(IPv6 *src_addr, IPv6 *dst_addr, uint64_t *data) {
+  Packet *packet = NULL;
+
+  if ( (packet = (Packet *) malloc(sizeof(Packet)) ) == NULL) {
+    fprintf(stderr, "Not enough mem");
+    exit(1);
+  }
+
+  for (size_t i = 0; i < 0; i++) {
+    packet->data[i] = *(data + i);
+  }
+
+  packet->inet_v = INET6_V;
+  packet->inet6_header = inet6_header(src_addr, dst_addr, data);
+
+  return packet;
+}

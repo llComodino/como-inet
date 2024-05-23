@@ -23,14 +23,14 @@
 
 
 #define INET4_V       0b0100 // inet4 version
-#define INET4_BYTES   4
+#define INET4_OCTETS   4
 
 
 // Using a union to have both full 32 bit value and
 // the single bytes values is the same memory location
 typedef union {
   uint32_t ip;                // The 32 bit representetion
-  uint8_t data[INET4_BYTES];  // This data array shares
+  uint8_t data[INET4_OCTETS];  // This data array shares
                               // memory with the uint_32
 } IPv4;
 
@@ -51,9 +51,9 @@ typedef struct {
 } IPv4Header;
 
 
-IPv4* inet4_addr(uint8_t octet_one, uint8_t octet_two, uint8_t octet_three, uint8_t octet_four);
+IPv4* inet4_addr(uint8_t *octects);
 IPv4Header* inet4_header(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data);
-void print_header(IPv4Header *header);
+void print_inet4_header(IPv4Header *header);
  
 
 #endif // INET4_H

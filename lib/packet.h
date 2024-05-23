@@ -18,6 +18,8 @@
 #ifndef PACKET_H
 #define PACKET_H
 
+#define MAX_DATA_SEGMENTS 4
+
 // uint_x types
 #include <stdint.h>
 // inet definitions
@@ -33,13 +35,13 @@ enum INET_V {
 
 typedef struct {
   enum INET_V inet_v;
-  uint64_t data[4];
+  uint64_t data[MAX_DATA_SEGMENTS];
   IPv4Header *inet4_header;
   IPv6Header *inet6_header;
 } Packet;
 
 
-Packet* new_inet4_packet(IPv4 *src_addr, IPv4 *dst_addr, uint64_t* data);
-Packet* new_inet6_packet(IPv6 src_addr, IPv6 dst_addr, uint64_t* data);
+Packet* new_inet4_packet(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data);
+Packet* new_inet6_packet(IPv6 *src_addr, IPv6 *dst_addr, uint64_t *data);
 
 #endif  // PACKET_H

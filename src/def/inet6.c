@@ -17,4 +17,69 @@
  */
 #include "../../lib/inet6.h"
 
+#include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
+
+IPv6* inet6_addr(uint16_t *hextets) {
+
+  IPv6 *addr = NULL;
+
+  if ( (addr = (IPv6 *) malloc(sizeof(IPv6)) ) == NULL ) {
+    fprintf(stderr, "Not enough mem");
+    exit(1);
+  }
+
+  for (size_t i = 0; i < INET6_HEXTETS; i++) {
+    addr->words[i] = *(hextets + i);
+  }
+
+  return addr;
+
+}
+
+IPv6Header* inet6_header(IPv6 *src_addr, IPv6 *dst_addr, uint64_t *data) {
+
+  IPv6Header *header = NULL;
+
+  if ( (header = (IPv6Header *) malloc(sizeof(IPv6Header)) ) == NULL) {
+    fprintf(stderr, "Not enough mem");
+    exit(1);
+  }
+
+  header->inet_v                = INET6_V;
+  header->hop_limit             = 104;
+
+  for (size_t i = 0; i < INET6_HEXTETS; i++) {
+    header->src_ip[i] = src_addr->words[i];
+    header->dest_ip[i] = dst_addr->words[i];
+  }
+
+  header->next_header           = 0x0;
+  header->payload_length        = sizeof(data);
+  header->version_traffic_flow  = 0x68;
+
+  return header;
+}
+
+void print_inet6_header(IPv6Header *header) {
+  printf(
+      "version: %d\n" 
+      "hop limit: %d\n"
+      "src: %d\n"
+      "dst: %x\n"
+      "next header: %x\n"
+      "payload len: %d\n"
+      "vtf: %d\n\n",
+
+          header->inet_v,
+          header->hop_limit,
+          header->src_ip,
+          header->dest_ip,
+          header->next_header,
+          header->payload_length,
+          header->version_traffic_flow
+    );
+
+  return;
+}

@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-IPv4* inet4_addr(uint8_t octet_one, uint8_t octet_two, uint8_t octet_three, uint8_t octet_four) {
+IPv4* inet4_addr(uint8_t *octects) {
 
   IPv4 *addr = NULL;
   if ( (addr = (IPv4 *) malloc(sizeof(IPv4)) ) == NULL) {
@@ -30,13 +30,11 @@ IPv4* inet4_addr(uint8_t octet_one, uint8_t octet_two, uint8_t octet_three, uint
     exit(1);
   }
 
-  addr->data[0] = octet_one;
-  addr->data[1] = octet_two;
-  addr->data[2] = octet_three;
-  addr->data[3] = octet_four;
+  for (size_t i = 0; i < INET4_OCTETS; i++) {
+    addr->data[i] = *(octects + i);
+  }
 
   return addr;
-
 }
 
 IPv4Header* inet4_header(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data) {
@@ -62,7 +60,7 @@ IPv4Header* inet4_header(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data) {
   return header;
 }
 
-void print_header(IPv4Header *header) {
+void print_inet4_header(IPv4Header *header) {
   printf(
 
       "v: %d\n" 
