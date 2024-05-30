@@ -56,7 +56,7 @@ IPv6Header* inet6_header(IPv6 *src_addr, IPv6 *dst_addr, uint64_t *data) {
   }
 
   header->next_header           = 0x0;
-  header->payload_length        = sizeof(data);
+  header->payload_length        = sizeof(*data);
   header->version_traffic_flow  = 0x68;
 
   return header;
@@ -66,16 +66,30 @@ void print_inet6_header(IPv6Header *header) {
   printf(
       "version: %d\n" 
       "hop limit: %d\n"
-      "src: %d\n"
-      "dst: %x\n"
+      "src: %x:%x:%x:%x:%x:%x:%x:%x\n"
+      "src: %x:%x:%x:%x:%x:%x:%x:%x\n"
       "next header: %x\n"
       "payload len: %d\n"
       "vtf: %d\n\n",
 
           header->inet_v,
           header->hop_limit,
-          header->src_ip,
-          header->dest_ip,
+          *(header->src_ip + 0),
+          *(header->src_ip + 1),
+          *(header->src_ip + 2),
+          *(header->src_ip + 3),
+          *(header->src_ip + 4),
+          *(header->src_ip + 5),
+          *(header->src_ip + 6),
+          *(header->src_ip + 7),
+          *(header->dest_ip + 0),
+          *(header->dest_ip + 1),
+          *(header->dest_ip + 2),
+          *(header->dest_ip + 3),
+          *(header->dest_ip + 4),
+          *(header->dest_ip + 5),
+          *(header->dest_ip + 6),
+          *(header->dest_ip + 7),
           header->next_header,
           header->payload_length,
           header->version_traffic_flow

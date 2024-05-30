@@ -61,13 +61,20 @@ IPv4Header* inet4_header(IPv4 *src_addr, IPv4 *dst_addr, uint64_t *data) {
 }
 
 void print_inet4_header(IPv4Header *header) {
+
+  IPv4 inet4_src;
+  inet4_src.ip = header->src_ip;
+
+  IPv4 inet4_dest;
+  inet4_dest.ip = header->dest_ip;
+
   printf(
 
       "v: %d\n" 
       "tos: %d\n"
       "ttl: %d\n"
-      "src: %d\n"
-      "dst: %x\n"
+      "src: %d.%d.%d.%d\n"
+      "dst: %d.%d.%d.%d\n"
       "checksum: %x\n"
       "proto: %x\n"
       "len: %x\n"
@@ -77,8 +84,14 @@ void print_inet4_header(IPv4Header *header) {
           header->inet_v,
           header->tos,
           header->ttl,
-          header->src_ip,
-          header->dest_ip,
+          inet4_src.data[0],
+          inet4_src.data[1],
+          inet4_src.data[2],
+          inet4_src.data[3],
+          inet4_dest.data[0],
+          inet4_dest.data[1],
+          inet4_dest.data[2],
+          inet4_dest.data[3],
           header->checksum,
           header->protocol,
           header->total_length,
